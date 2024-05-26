@@ -10,8 +10,6 @@ const merriweather = Merriweather({
   weight: "700",
 });
 
-const ENDPOİNT = "http://localhost:3000/api/submit-survey";
-
 function SurveyForm({ children, questions }) {
   const [status, setStatus] = useState("idle");
   const formRef = useRef();
@@ -29,7 +27,7 @@ function SurveyForm({ children, questions }) {
             selectedValues[value] = key;
           });
 
-          const response = await fetch(ENDPOİNT, {
+          const response = await fetch(process.env.POST_URL, {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
