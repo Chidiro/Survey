@@ -6,24 +6,25 @@ export async function POST(request) {
     const { selectedValues } = await request.json();
     const selected = Object.entries(selectedValues);
 
-    const isStudent = selected[(0)[0]];
-    const isCuisine = selected[(1)[0]];
+    const isStudent = selected[0][0] == "Evet" ? true : false;
+    const isCuisine = selected[1][0] == "Evet" ? true : false;
 
     const participantResult = await sql`
       INSERT INTO Participants (is_student, into_cuisine) 
-      VALUES (${isStudent}, ${isCuisine}}]) 
+      VALUES (${isStudent}, ${isCuisine}) 
       RETURNING participant_id`;
 
-    const participantId = participantResult[0].participant_id;
-
-    console.log(selected);
-    for (const [answer, questionId] of selected) {
+    const participantId = participantResult.rows[0].participant_id;
+    for (const [answer, questionId] of selected.slice(2)) {
+      const questionIdNumber = parseInt(questionId.replace("question-", ""));
+      if (isNaN(questionIdNumber)) {
+        throw new Error(`Invalid questionId: ${questionId}`);
+      }
+      console.log(questionIdNumber);
       await sql`
-        INSERT INTO responses (participant_id, question_id, answer) 
-        VALUES (${participantId}, ${parseInt(
-        questionId.replace("question-", "")
-      )}, ${answer})
-        `;
+        INSERT INTO responses (participant_id, question_id, answer_choice) 
+        VALUES (${participantId}, ${questionIdNumber}, ${answer})
+      `;
     }
 
     return NextResponse.json(
