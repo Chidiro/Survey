@@ -21,20 +21,32 @@ function SurveyForm({ children, questions }) {
       ref={formRef}
       className="flex flex-col gap-10 text-xl border-black rounded-md mt-8 p-6"
       onSubmit={async (e) => {
-        e.preventDefault();
-        const formData = new FormData(formRef.current);
-        const selectedValues = {};
-        formData.forEach((value, key) => {
-          selectedValues[value] = key;
-        });
+        try {
+          e.preventDefault();
+          const formData = new FormData(formRef.current);
+          const selectedValues = {};
+          formData.forEach((value, key) => {
+            selectedValues[value] = key;
+          });
 
-        const result = await fetch(ENDPOİNT, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({}),
-        });
+          const response = await fetch(ENDPOİNT, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ selectedValues }),
+          });
+
+          if (response.ok) {
+            const result = await response.json();
+            console.log("Server Response:", result.message);
+          } else {
+            const errorResult = await response.json();
+            console.error("Error:", errorResult.message);
+          }
+        } catch (error) {
+          console.error("error", error);
+        }
       }}
     >
       {questions.map((quest, i) => (
