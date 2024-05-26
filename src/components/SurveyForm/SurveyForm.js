@@ -23,7 +23,7 @@ function SurveyForm({ children, questions }) {
           e.preventDefault();
           const formData = new FormData(formRef.current);
           const selectedValues = {};
-          formData.forEach((value, key) => {
+          formData.forEach((key, value) => {
             selectedValues[value] = key;
           });
 
