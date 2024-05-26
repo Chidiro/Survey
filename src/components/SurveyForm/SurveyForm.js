@@ -38,12 +38,8 @@ function SurveyForm({ children, questions }) {
           const text = await response.json();
           console.log(text);
 
-          if (response.ok) {
-            const result = await response.json();
-            console.log("Server Response:", result.message);
-          } else {
-            const errorResult = await response.json();
-            console.error("Error:", errorResult.message);
+          if (!response.ok) {
+            console.log("Server Response:", response.message);
           }
         } catch (error) {
           console.error("error", error);

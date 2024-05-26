@@ -9,24 +9,23 @@ export async function POST(request) {
     const isStudent = selected[(0)[0]];
     const isCuisine = selected[(1)[0]];
 
-    await sql.begin(async (sqlTransaction) => {
-      const participantResult = await sqlTransaction`
-        INSERT INTO Participants (is_student, into_cuisine) 
-        VALUES (true, true) 
-        RETURNING participant_id
-      `;
+    const participantResult = await sql`
+      INSERT INTO Participants (is_student, into_cuisine) 
+      VALUES (${isStudent}, ${isCuisine}}]) 
+      RETURNING participant_id`;
 
-      const participantId = participantResult.rows[0].participant_id;
+    const participantId = participantResult[0].participant_id;
 
-      for (const [key, value] of selected) {
-        await sqlTransaction`
-          INSERT INTO Responses (participant_id, question_id, answer) 
-          VALUES (${participantId}, ${parseInt(
-          value.replace("question-", "")
-        )}, ${key})
+    console.log(selected);
+    for (const [answer, questionId] of selected) {
+      await sql`
+        INSERT INTO responses (participant_id, question_id, answer) 
+        VALUES (${participantId}, ${parseInt(
+        questionId.replace("question-", "")
+      )}, ${answer})
         `;
-      }
-    });
+    }
+
     return NextResponse.json(
       { message: "Katılımınız için teşekkürler" },
       { status: 200 }
