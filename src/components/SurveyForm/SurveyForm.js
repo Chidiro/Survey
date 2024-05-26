@@ -27,13 +27,16 @@ function SurveyForm({ children, questions }) {
             selectedValues[value] = key;
           });
 
-          const response = await fetch(process.env.POST_URL, {
+          const response = await fetch("/api/submit-survey", {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
             },
             body: JSON.stringify({ selectedValues }),
           });
+
+          const text = await response.json();
+          console.log(text);
 
           if (response.ok) {
             const result = await response.json();

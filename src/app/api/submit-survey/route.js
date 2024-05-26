@@ -4,9 +4,6 @@ import { NextResponse } from "next/server";
 export async function POST(request) {
   try {
     const { selectedValues } = await request.json();
-    if (Object.keys(selectedValues).length !== 29) {
-      throw new Error("Bütün Soruları Cevaplayın Lütfen");
-    }
     const selected = Object.entries(selectedValues);
 
     const isStudent = selected[(0)[0]];
