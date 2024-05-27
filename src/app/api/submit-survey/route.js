@@ -5,6 +5,10 @@ export async function POST(request) {
   try {
     const { selectedValues } = await request.json();
     const selected = Object.entries(selectedValues);
+    console.log(selected);
+    if (selected.length < 10) {
+      throw new Error("Bütün soruları cevaplayın lütfen.");
+    }
 
     const isStudent = selected[0][1] == "Evet" ? true : false;
     const isCuisine = selected[1][1] == "Evet" ? true : false;

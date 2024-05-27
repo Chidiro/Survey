@@ -23,7 +23,7 @@ function Questions({ chidren, question, index, fontStyle }) {
       >
         {question}
       </h2>
-      <div className="flex flex-row gap-6 justify-start px-4 py-6 bg-gray-50">
+      <div className="flex flex-col gap-6 justify-start px-4 py-6 bg-gray-50">
         {choices.map((choice, i) => {
           if (index < 2 && i >= 2) {
             return;

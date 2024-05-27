@@ -3,6 +3,8 @@
 import React, { useRef, useState } from "react";
 import Questions from "../Questions";
 import { Merriweather } from "next/font/google";
+import { toast, Toaster } from "react-hot-toast";
+import { useRouter } from "next/navigation";
 
 const merriweather = Merriweather({
   variable: "--font-merriweather",
@@ -13,7 +15,7 @@ const merriweather = Merriweather({
 function SurveyForm({ children, questions }) {
   const [status, setStatus] = useState("idle");
   const formRef = useRef();
-
+  const router = useRouter();
   return (
     <form
       ref={formRef}
@@ -39,9 +41,13 @@ function SurveyForm({ children, questions }) {
           console.log(text);
 
           if (!response.ok) {
+            throw new Error(text.error);
             console.log("Server Response:", response.message);
           }
+
+          router.push("/success");
         } catch (error) {
+          toast.error(error.message);
           console.error("error", error);
         }
       }}
@@ -57,6 +63,7 @@ function SurveyForm({ children, questions }) {
       <button className="mr-auto bg-slate-700 px-10 py-3 rounded-2xl text-slate-100 hover:bg-slate-500">
         Onayla
       </button>
+      <Toaster position="top center" />
     </form>
   );
 }

@@ -14,7 +14,7 @@ const open_sans = Open_Sans({
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={open_sans.className}>{children}</body>
+      <body className={open_sans.className + " bg-slate-200"}>{children}</body>
     </html>
   );
 }
