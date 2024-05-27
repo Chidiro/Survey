@@ -6,7 +6,7 @@ export async function POST(request) {
     const { selectedValues } = await request.json();
     const selected = Object.entries(selectedValues);
     console.log(selected);
-    if (selected.length < 10) {
+    if (selected.length < 29) {
       throw new Error("Bütün soruları cevaplayın lütfen.");
     }
 
