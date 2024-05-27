@@ -5,9 +5,9 @@ const options = ["Evet", "Hayır"];
 
 const choices = [
   "Kesinlikle Katılıyorum",
-  "Katılmıyorum",
-  "Ne Katılıyorum Ne Katılmıyorum",
   "Katılıyorum",
+  "Ne Katılıyorum Ne Katılmıyorum",
+  "Katılmıyorum",
   "Kesinlikle Katılmıyorum",
 ];
 function Questions({ chidren, question, index, fontStyle }) {
