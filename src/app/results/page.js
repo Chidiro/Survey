@@ -29,8 +29,8 @@ export default async function Results({ children }) {
     (el, i) => i + 1
   );
   return (
-    <div className="flex w-9/12 h-max justify-center mt-5 mx-auto">
-      <div className="flex-col w-4/12 border-2 border-black p-1">
+    <div className="flex w-full h-max justify-center mt-5 mx-3">
+      <div className="flex-col w-full border-2 border-black p-1 mx-3">
         <NestedModal
           responsesObj={responsesObj}
           participantArray={participantArray}
