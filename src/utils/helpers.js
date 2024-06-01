@@ -8,3 +8,13 @@ export async function getQuestions() {
     return console.log(error);
   }
 }
+
+export async function getResults() {
+  try {
+    const responses = await sql`
+    SELECT * FROM responses`;
+    return responses.rows;
+  } catch (error) {
+    console.log(error);
+  }
+}
