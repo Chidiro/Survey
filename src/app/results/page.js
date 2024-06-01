@@ -1,7 +1,9 @@
 import { getResults } from "@/utils/helpers";
 import NestedModal from "@/components/Modal/Modal";
 export default async function Results({ children }) {
-  const responses = await getResults();
+  const response = await fetch("http://localhost:3000/api/get-results");
+  const { data: responses } = await response.json();
+
   const responsesObj = {};
   const questions = {
     "Kesinlikle Katılıyorum": 0,
@@ -28,6 +30,7 @@ export default async function Results({ children }) {
     { length: Object.keys(responsesObj).length },
     (el, i) => i + 1
   );
+  console.log(responses);
   return (
     <div className="flex w-full h-max justify-center mt-5 mx-3">
       <div className="flex-col w-full border-2 border-black p-1 mx-3">
@@ -40,8 +43,11 @@ export default async function Results({ children }) {
             {"Toplam katılımcı: " + Object.keys(responsesObj).length}
           </div>
         </div>
-        {Object.entries(questions).map(([quest, count]) => (
-          <div className="flex justify-between border-2 border-black p-2">
+        {Object.entries(questions).map(([quest, count], i) => (
+          <div
+            key={i}
+            className="flex justify-between border-2 border-black p-2"
+          >
             <div className="">{quest}: </div>
             <div className="">{count}</div>
           </div>
