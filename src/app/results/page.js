@@ -1,10 +1,32 @@
-import { getResults } from "@/utils/helpers";
+"use client";
+
 import NestedModal from "@/components/Modal/Modal";
-export default async function Results({ children }) {
-  const response = await fetch(
-    "https://survey-i7bod5q3b-denizs-projects-c4fb9736.vercel.app/api/get-results"
-  );
-  const { data: responses } = await response.json();
+import { useState, useEffect } from "react";
+
+export default function Results({ children }) {
+  const [responses, setResponses] = useState([]);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch("/api/get-results");
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        const data = await response.json();
+        setResponses(data.data);
+      } catch (error) {
+        setError(error.message);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  if (error) {
+    return <div>Error: {error}</div>;
+  }
 
   const responsesObj = {};
   const questions = {
