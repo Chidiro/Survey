@@ -2,7 +2,7 @@ import { getResults } from "@/utils/helpers";
 import NestedModal from "@/components/Modal/Modal";
 export default async function Results({ children }) {
   const response = await fetch(
-    "https://survey-liart.vercel.app/api/get-results"
+    "https://survey-i7bod5q3b-denizs-projects-c4fb9736.vercel.app/api/get-results"
   );
   const { data: responses } = await response.json();
 
