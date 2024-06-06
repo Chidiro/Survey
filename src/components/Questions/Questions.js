@@ -1,7 +1,7 @@
 "use client";
 import React, { useId, useState } from "react";
 
-const options = ["Evet", "Hayır"];
+const options = [1, 2, 3, 4];
 
 const choices = [
   "Kesinlikle Katılıyorum",
@@ -25,7 +25,7 @@ function Questions({ chidren, question, index, fontStyle }) {
       </h2>
       <div className="flex flex-col gap-6 justify-start px-4 py-6 bg-gray-50">
         {choices.map((choice, i) => {
-          if (index < 2 && i >= 2) {
+          if (index < 2 && i >= 4) {
             return;
           }
           return (

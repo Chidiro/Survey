@@ -10,12 +10,11 @@ export async function POST(request) {
       throw new Error("Bütün soruları cevaplayın lütfen.");
     }
 
-    const isStudent = selected[0][1] == "Evet" ? true : false;
-    const isCuisine = selected[1][1] == "Evet" ? true : false;
+    const number = Number(selected[0][1]);
 
     const participantResult = await sql`
-      INSERT INTO Participants (is_student, into_cuisine) 
-      VALUES (${isStudent}, ${isCuisine}) 
+      INSERT INTO Participants (Kaçıncı sınıfta okuyorsun?) 
+      VALUES (${number}) 
       RETURNING participant_id`;
 
     const participantId = participantResult.rows[0].participant_id;

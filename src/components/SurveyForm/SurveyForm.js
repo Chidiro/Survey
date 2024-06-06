@@ -52,14 +52,19 @@ function SurveyForm({ children, questions }) {
         }
       }}
     >
-      {questions.map((quest, i) => (
-        <Questions
-          key={i}
-          question={quest}
-          index={i}
-          fontStyle={merriweather}
-        />
-      ))}
+      {questions.map((quest, i) => {
+        if (i == 1) {
+          return;
+        }
+        return (
+          <Questions
+            key={i}
+            question={quest}
+            index={i}
+            fontStyle={merriweather}
+          />
+        );
+      })}
       <button className="mr-auto bg-slate-700 px-10 py-3 rounded-2xl text-slate-100 hover:bg-slate-500">
         Onayla
       </button>
