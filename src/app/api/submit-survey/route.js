@@ -14,7 +14,7 @@ export async function POST(request) {
 
     const participantResult = await sql`
       INSERT INTO Participants (is_student, into_cuisine, "Kaçıncı sınıfta okuyorsun?") 
-      VALUES ('Evet', 'Evet', ${number}) 
+      VALUES (true, true, ${number}) 
       RETURNING participant_id`;
 
     const participantId = participantResult.rows[0].participant_id;
