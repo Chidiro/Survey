@@ -13,7 +13,7 @@ export async function POST(request) {
     const number = Number(selected[0][1]);
 
     const participantResult = await sql`
-      INSERT INTO Participants (is_student, into_cuisine, "Kaçıncı sınıfta okuyorsunuz?") 
+      INSERT INTO Participants (is_student, into_cuisine, "Kaçıncı sınıfta okuyorsun?") 
       VALUES ('Evet', 'Evet', ${number}) 
       RETURNING participant_id`;
 
