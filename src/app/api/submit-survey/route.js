@@ -6,15 +6,15 @@ export async function POST(request) {
     const { selectedValues } = await request.json();
     const selected = Object.entries(selectedValues);
     console.log(selected);
-    if (selected.length < 28) {
+    if (selected.length < 26) {
       throw new Error("Bütün soruları cevaplayın lütfen.");
     }
 
     const number = Number(selected[0][1]);
 
     const participantResult = await sql`
-      INSERT INTO Participants (Kaçıncı sınıfta okuyorsun?) 
-      VALUES (${number}) 
+      INSERT INTO Participants (is_student, into_cuisine, "Kaçıncı sınıfta okuyorsunuz?") 
+      VALUES ('Evet', 'Evet', ${number}) 
       RETURNING participant_id`;
 
     const participantId = participantResult.rows[0].participant_id;
